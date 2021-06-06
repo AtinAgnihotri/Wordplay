@@ -30,6 +30,7 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitle(rootWord)
+            .onAppear(perform: startGame)
         }
     }
     
@@ -46,6 +47,18 @@ struct ContentView: View {
         userWords.insert(userAns, at: 0)
         newWord = ""
         
+    }
+    
+    func startGame() {
+        if let startGameURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
+            if let startText = try? String(contentsOf: startGameURL) {
+                let startWords = startText.components(separatedBy: "\n")
+                rootWord = startWords.randomElement() ?? "silkworm"
+                return
+            }
+        }
+        
+        fatalError("Could not load start.txt from the bundle")
     }
 }
 
