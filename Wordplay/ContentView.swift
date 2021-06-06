@@ -12,31 +12,17 @@ struct ContentView: View {
     let people  = ["Tom", "Dick", "Hardy"]
     
     var body: some View {
-        NavigationView {
-            List {
-//            List (people, id: \.self){
-//            List (0..<5){
-                ForEach(people, id: \.self) { person in
-                    Text("List row \(person)")
-                }
-//                Section (header: Text("Static Section 1")) {
-//                    Text("Static Row 1")
-//                    Text("Static Row 2")
-//                }
-//
-//                Section (header: Text("Dynamic Section 1")) {
-//                    ForEach(0..<20) {
-//                        Text("Dynamic row \($0 + 1)")
-//                    }
-//                }
-//
-//                Section (header: Text("Static Section 2")) {
-//                    Text("Static Row 3")
-//                    Text("Static Row 4")
-//                }
-            }.edgesIgnoringSafeArea(.all)
-            .listStyle(GroupedListStyle())
-        }.edgesIgnoringSafeArea(.all)
+        var message = ""
+        if let fileURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
+            message = "We found the file"
+            if let fileContent = try? String(contentsOf: fileURL) {
+                message += "\nWe've loaded the file content"
+            }
+        } else {
+            message = "File was not found"
+        }
+        
+        return Text(message)
     }
 }
 
