@@ -19,10 +19,12 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 TextField("Enter your word", text: $newWord, onCommit: addNewWord)
+                    .autocapitalization(.none)
                     .padding()
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 List (userWords, id: \.self) {
+                    Image(systemName: "\($0.count).circle")
                     Text($0)
                         .padding()
                 }
